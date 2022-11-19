@@ -24,7 +24,7 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
       setCards(cards);
     });
     return () => stopSync();
-  }, [userId]); //사용자의 id가 변경될때마다 쓸거애요
+  }, [userId, cardRepository]); //사용자의 id가 변경될때마다 쓸거애요
   //(cards) => {
   //   setCards(cards);
   // }
@@ -34,12 +34,12 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
     authService.onAuthChange((user) => {
       if (user) {
         setUserId(user.uid);
-        console.log(userId);
+        // console.log(userId);
       } else {
         history.push('/');
       }
     });
-  });
+  }, [userId, authService, history]); //웬만하면 내가 쓰고있는 데이터가 변경될때만 이 아이들이 업뎃될수있도록 이렇게 디펜던시를 작성해주는게 좋음
 
   const createOrUpdateCard = (card) => {
     //console.log(card, 'car?d'); // 1번object만 가져옴
