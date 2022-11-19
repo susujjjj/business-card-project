@@ -5,7 +5,7 @@ class CardRepository {
     const ref = firebaseDatabase.ref(`${userId}/cards`);
     ref.on('value', (snapshot) => {
       const value = snapshot.val();
-      console.log(value, 'snapshot.val() value??');
+      // console.log(value, 'snapshot.val() value??');
       value && onUpdate(value); // value는 곧 maker.jsx의 useEffect cardRepository.syncCard 두번째인자인 cards입니다
       //firebase에서 해당 경로에 데이터가 계속 업뎃 될때마다, 업뎃된다면, 이 스냅샷에 벨류가 설정되어있다면
       //우리가 두번째 인자로 전달받은콜백함수를 계속 호출해줄거다

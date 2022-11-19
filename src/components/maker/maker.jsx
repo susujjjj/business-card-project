@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../footer/footer';
 import Header from '../header/header';
@@ -10,11 +10,19 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
   const historyState = useHistory().state;
   const [cards, setCards] = useState({});
   const [userId, setUserId] = useState(historyState && historyState.id);
-
   const history = useHistory();
-  const onLogout = () => {
+
+  const onLogout = useCallback(() => {
+    //이 Maker함수 안에서 지역변수로 만들어진 아이입니다
+    //onLogout은 Maker 함수가 리렌더가 발생할때마다 계속해서 새로운 함수가 만들어지겠죠?
+    //Maker라는 컴포넌트가 변경될때마다 계속해서 새로운 onLogout이 만들어지는 거에요 그래서 useCallback써줌
     authService.logout();
-  };
+    //그러면 Maker함수가 새로 불려져도 여기 안에서는 한번 만들어진 함수만 계속 재사용한다는거임
+  }, [authService]);
+
+  //authService가 변경이 되어도 한번 저장된 예전의 authService를 사용하게된다는 말입니다.
+  //이 useCallback은 업데이트되어도 계속 동일한걸 캐시를 이용해서 쓰는데, 대신에 내가 안에서 이용하고 있는
+  //authService에 변화가 생긴다면, 다시 새로운 콜백을 만들거야 라고 전달해줘야되요
 
   useEffect(() => {
     if (!userId) {
