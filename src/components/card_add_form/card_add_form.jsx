@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
-import ImageFileInput from '../image_file_input/image_file_input';
-import Button from '../button/button';
 import styles from './card_add_form.module.css';
+import Button from '../button/button';
 
 const CardAddForm = ({ FileInput, onAdd }) => {
   const formRef = useRef();
@@ -11,37 +10,33 @@ const CardAddForm = ({ FileInput, onAdd }) => {
   const titleRef = useRef();
   const emailRef = useRef();
   const messageRef = useRef();
-
   const [file, setFile] = useState({ fileName: null, fileURL: null });
 
-  const onFileChange = (file) => {
-    console.log(file, 'file?');
+  const onFileChange = file => {
+    console.log(file);
     setFile({
       fileName: file.name,
       fileURL: file.url,
     });
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = event => {
     event.preventDefault();
     const card = {
-      id: Date.now(), // uuid
+      id: Date.now(), //uuid
       name: nameRef.current.value || '',
       company: companyRef.current.value || '',
       theme: themeRef.current.value,
       title: titleRef.current.value || '',
+      email: emailRef.current.value || '',
       message: messageRef.current.value || '',
       fileName: file.fileName || '',
       fileURL: file.fileURL || '',
     };
-    formRef.current.reset(); //사용자가 입력해서 제출하고 나면 form이 다 리셋되도록 만들기
-
+    formRef.current.reset();
     setFile({ fileName: null, fileURL: null });
-
-    // console.log(card, ' car??D');
     onAdd(card);
   };
-
   return (
     <form ref={formRef} className={styles.form}>
       <input
@@ -64,9 +59,9 @@ const CardAddForm = ({ FileInput, onAdd }) => {
         name="theme"
         placeholder="Theme"
       >
-        <option value="light">light</option>
-        <option value="dark">dark</option>
-        <option value="colorful">colorful</option>
+        <option placeholder="light">light</option>
+        <option placeholder="dark">dark</option>
+        <option placeholder="colorful">colorful</option>
       </select>
       <input
         ref={titleRef}
