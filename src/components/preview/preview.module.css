@@ -1,4 +1,4 @@
-@value makerGreen from '../../common/colors.css';
+@value makerDark from '../../common/colors.css';
 
 .preview {
   flex-basis: 50%;
@@ -18,5 +18,5 @@
   width: 100%;
   text-align: center;
   margin-bottom: 1em;
-  color: makerGreen;
+  color: makerDark;
 }
