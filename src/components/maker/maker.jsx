@@ -9,7 +9,7 @@ import styles from './maker.module.css';
 //Maker > Preview > card.jsx
 //Maker > Editor > CardEditForm.jsx
 
-const Maker = ({ authService }) => {
+const Maker = ({ FileInput, authService }) => {
   const [cards, setCards] = useState({
     '1': {
       id: '1',
@@ -65,8 +65,10 @@ const Maker = ({ authService }) => {
   // };
 
   const createOrUpdateCard = (card) => {
+    //console.log(card, 'car?d'); // 1번object만 가져옴
     setCards((cards) => {
       const updated = { ...cards };
+      // console.log(updated, 'updated___');
       updated[card.id] = card;
       return updated;
     });
@@ -96,6 +98,7 @@ const Maker = ({ authService }) => {
       <Header onLogout={onLogout} />
       <div className={styles.container}>
         <Editor
+          FileInput={FileInput}
           cards={cards}
           addCard={createOrUpdateCard}
           updateCard={createOrUpdateCard}
